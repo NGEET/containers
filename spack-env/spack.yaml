@@ -8,6 +8,7 @@ spack:
   - netlib-lapack%gcc@11.4
   - esmf%gcc@11.4+mpi+netcdf
   - pfunit%gcc@11.4+esmf+mpi
+  - miniconda3%gcc@11.4
 
   container:
     format: docker

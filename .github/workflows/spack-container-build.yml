@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}:latest -f spack-env/Dockerfile spack-env
+          docker build -t ghcr.io/${{ github.repository }}:latest spack-env
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3

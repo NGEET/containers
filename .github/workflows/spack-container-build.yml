@@ -31,7 +31,7 @@ jobs:
       - name: Generate Dockerfile with Spack
         run: |
           cd spack-env
-          ../spack/bin/spack containerize
+          ../spack/bin/spack containerize > Dockerfile
 
       - name: Build Docker image
         run: |

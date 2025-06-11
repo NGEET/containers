@@ -1,0 +1,3 @@
+# FATES Container Recipes and Workflows
+
+This repository is intended to be used to develop and maintain the recipes and workflows to build and publish container images.  The scope will be to focus on specific containers that are not provided by other partner organizations.  Note that this is different from the fates-containers and tutorial-containers repositories, which will likely be moved into this repository in the future.

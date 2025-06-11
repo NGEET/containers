@@ -1,0 +1,49 @@
+name: Build and Push Spack Container
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Spack
+        run: |
+          git clone --depth 1 --branch v0.23.0 https://github.com/spack/spack.git
+          echo "${GITHUB_WORKSPACE}/spack/bin" >> $GITHUB_PATH
+
+      - name: Generate Dockerfile with Spack
+        run: |
+          cd spack-env
+          ../spack/bin/spack containerize
+
+      - name: Build Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}:latest -f spack-env/Dockerfile spack-env
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/${{ github.repository }}:latest

@@ -1,0 +1,17 @@
+spack:
+  specs:
+  - openmpi@4%gcc@11.4
+  - netcdf-c%gcc@11.4+mpi
+  - netcdf-fortran%gcc@11.4
+  - cmake%gcc@11.4
+  - perl-xml-libxml%gcc@11.4
+  - netlib-lapack%gcc@11.4
+  - esmf%gcc@11.4+mpi+netcdf
+  - pfunit%gcc@11.4+esmf+mpi
+
+  container:
+    format: docker
+    images:
+      os: ubuntu:22.04
+      spack: 0.23.0
+    strip: true

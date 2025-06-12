@@ -32,6 +32,12 @@ jobs:
           cd spack-env
           ../spack/bin/spack containerize > Dockerfile
 
+      - name: Upload generated Dockerfile
+        uses: actions/upload-artifact@v4
+        with:
+          name: spack-dockerfile
+          path: spack-env/Dockerfile
+
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:

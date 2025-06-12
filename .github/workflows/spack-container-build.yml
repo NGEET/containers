@@ -42,7 +42,7 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: ./spack-env
           file: Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}/spack-env:latest

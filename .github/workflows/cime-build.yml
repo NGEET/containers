@@ -33,7 +33,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./unit-testing/
-          file: Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}/unit-testing:latest
           cache-from: type=gha

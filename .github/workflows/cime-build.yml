@@ -24,10 +24,17 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push image
-        uses: docker/build-push-action@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
         with:
-          context: ./unit-testing
+          buildkitd-flags: --debug
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./unit-testing/
           file: Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}/unit-testing:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

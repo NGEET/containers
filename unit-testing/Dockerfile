@@ -14,4 +14,7 @@ RUN wget -q https://github.com/ESMCI/cime/archive/refs/tags/${CIME_VERSION}.tar.
 # Copy the cime configuration files in the .cime directory in the container
 # COPY cime/ .cime/
 
-
+# Install Python and pip
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip && \
+    rm -rf /var/lib/apt/lists/*

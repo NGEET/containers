@@ -18,3 +18,7 @@ RUN wget -q https://github.com/ESMCI/cime/archive/refs/tags/${CIME_VERSION}.tar.
 # RUN apt-get update && \
 #     apt-get install -y python3 python3-pip && \
 #     rm -rf /var/lib/apt/lists/*
+
+# Make sure that the entrypoint defined in the spack-env image is used
+ENTRYPOINT [ "/entrypoint.sh" ]
+CMD [ "/bin/bash" ]

@@ -2,7 +2,6 @@
 <config_machines>
    <machine MACH="fatestestcontainer">
       <DESC></DESC>
-      <NODENAME_REGEX>dockernode</NODENAME_REGEX>
       <OS>linux</OS>
       <COMPILERS>gnu</COMPILERS>
       <MPILIBS>openmpi,mpi-serial</MPILIBS>

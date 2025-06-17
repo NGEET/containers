@@ -12,12 +12,7 @@ RUN wget -q https://github.com/ESMCI/cime/archive/refs/tags/${CIME_VERSION}.tar.
     && rm ${CIME_VERSION}.tar.gz
 
 # Copy the cime configuration files in the .cime directory in the container
-# COPY cime/ .cime/
-
-# # Install Python and pip
-# RUN apt-get update && \
-#     apt-get install -y python3 python3-pip && \
-#     rm -rf /var/lib/apt/lists/*
+COPY cime/ .cime/
 
 # Make sure that the entrypoint defined in the spack-env image is used
 ENTRYPOINT [ "/entrypoint.sh" ]

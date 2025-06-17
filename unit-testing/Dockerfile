@@ -12,7 +12,7 @@ RUN wget -q https://github.com/ESMCI/cime/archive/refs/tags/${CIME_VERSION}.tar.
     && rm ${CIME_VERSION}.tar.gz
 
 # Copy the cime configuration files in the .cime directory in the container
-COPY cime/ .cime/
+COPY cime/ $HOME/.cime/
 
 # Make sure that the entrypoint defined in the spack-env image is used
 ENTRYPOINT [ "/entrypoint.sh" ]

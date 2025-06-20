@@ -5,8 +5,8 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - 'unit-testing/Dockerfile'
       - '.github/workflows/cime-build.yml'
-      - 'unit-testing/**'
 
 jobs:
   build-and-push:

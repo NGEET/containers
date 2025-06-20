@@ -1,0 +1,42 @@
+name: Generate Spack Dockerfile
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'spack-env/spack.yaml'
+      - '.github/workflows/spack-dockerfile.yml'
+
+jobs:
+  generate-dockerfile-via-spack:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Spack
+        run: |
+          git clone --depth 1 --branch v0.23.0 https://github.com/spack/spack.git
+          echo "${GITHUB_WORKSPACE}/spack/bin" >> $GITHUB_PATH
+
+      - name: Generate Dockerfile with Spack
+        run: |
+          cd spack-env
+          ../spack/bin/spack containerize > Dockerfile
+
+      - name: Upload generated Dockerfile
+        uses: actions/upload-artifact@v4
+        with:
+          name: spack-dockerfile
+          path: spack-env/Dockerfile

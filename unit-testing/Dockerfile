@@ -1,4 +1,4 @@
-FROM ghcr.io/glemieux/containers/spack-env:latest
+FROM ghcr.io/ngeet/containers/spack-env:latest
 
 ARG CIME_VERSION=cime6.1.102
 ARG CCS_CONFIG_VERSION=ccs_config_cesm1.0.46

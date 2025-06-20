@@ -35,6 +35,7 @@ jobs:
           cd spack-env
           ../spack/bin/spack containerize > Dockerfile
 
+      # Update the Dockerfile for human review for debugging if necessary
       - name: Upload generated Dockerfile
         uses: actions/upload-artifact@v4
         with:

@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   pull_request:
     branches: [main]
+    paths:
+      - 'spack-env/spack.yaml'
+      - '.github/workflows/spack-container-build.yml'
 
 jobs:
   build-and-push:

@@ -1,4 +1,4 @@
-name: Build and Push Spack Container
+name: Generate Spack Dockerfile
 
 on:
   workflow_dispatch:
@@ -6,10 +6,10 @@ on:
     branches: [main]
     paths:
       - 'spack-env/spack.yaml'
-      - '.github/workflows/spack-container-build.yml'
+      - '.github/workflows/spack-dockerfile.yml'
 
 jobs:
-  build-and-push:
+  generate-dockerfile-via-spack:
     runs-on: ubuntu-latest
 
     permissions:
@@ -40,24 +40,3 @@ jobs:
         with:
           name: spack-dockerfile
           path: spack-env/Dockerfile
-
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-        with:
-          buildkitd-flags: --debug
-
-      - name: Build and push image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./spack-env/
-          push: true
-          tags: ghcr.io/${{ github.repository }}/spack-env:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max

@@ -17,11 +17,29 @@ jobs:
       packages: write
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Download Dockerfile artefact
-        uses: actions/download-artifact@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Spack
+        run: |
+          git clone --depth 1 --branch v0.23.0 https://github.com/spack/spack.git
+          echo "${GITHUB_WORKSPACE}/spack/bin" >> $GITHUB_PATH
+
+      - name: Generate Dockerfile with Spack
+        run: |
+          cd spack-env
+          ../spack/bin/spack containerize > Dockerfile
+
+      - name: Upload generated Dockerfile
+        uses: actions/upload-artifact@v4
         with:
           name: spack-dockerfile
+          path: spack-env/Dockerfile
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
@@ -43,6 +61,7 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
+          context: ./spack-env/
           push: true
           tags: ghcr.io/${{ env.REPO_NAME }}/spack-env:latest
           cache-from: type=gha

@@ -59,6 +59,7 @@ jobs:
         run: |
           echo "REPO_NAME=`echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]'`" >> $GITHUB_ENV
 
+      # Consider changing the push step to a load and test before pushing to the registry
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:

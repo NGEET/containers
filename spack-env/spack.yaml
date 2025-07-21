@@ -9,6 +9,27 @@ spack:
   - esmf%gcc@11.4+mpi+netcdf
   - pfunit%gcc@11.4+esmf+mpi
   - py-pip%gcc@11.4
+  
+  modules:
+    default:
+      exclude_implicits: false
+      hide_implicits: true
+      hash_length: 0
+      all:
+        autoload: direct
+        environment:
+          set:
+            `{name}_ROOT`: '{prefix}'
+      projections:
+        all: '{name}'/'{version}'
+      netcdf-c:
+        environment:
+          set:
+            NETCDF: '{prefix}'
+      netcdf-fortran:
+        environment:
+          set:
+            NETCDF_FORTRAN: '{prefix}'
 
   container:
     format: docker

@@ -21,7 +21,7 @@ spack:
           set:
             '{name}_ROOT': '{prefix}'
       projections:
-        all: '{name}'/'{version}'
+        all: '{name}/{version}'
       netcdf-c:
         environment:
           set:

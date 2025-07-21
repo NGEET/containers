@@ -19,7 +19,7 @@ spack:
         autoload: direct
         environment:
           set:
-            `{name}_ROOT`: '{prefix}'
+            '{name}_ROOT': '{prefix}'
       projections:
         all: '{name}'/'{version}'
       netcdf-c:

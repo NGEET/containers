@@ -23,7 +23,7 @@ jobs:
       - name: Setup Spack
         uses: spack/setup-spack@v2
         with:
-          ref: release/v0.22
+          ref: releases/v0.22
           buildcache: true
           color: true
           path: spack

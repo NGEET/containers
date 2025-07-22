@@ -20,20 +20,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Setup Spack
+        uses: spack/setup-spack@v2
         with:
-          python-version: '3.10'
-
-      - name: Install Spack
-        run: |
-          git clone --depth 1 --branch v0.23.0 https://github.com/spack/spack.git
-          echo "${GITHUB_WORKSPACE}/spack/bin" >> $GITHUB_PATH
+          ref: release/v0.22
+          buildcache: true
+          color: true
+          path: spack
 
       - name: Generate Dockerfile with Spack
+        shell: spack-bash {0}
+        working-directory: spack-env
         run: |
-          cd spack-env
-          ../spack/bin/spack containerize > Dockerfile
+          spack env activate .
+          spack containerize > Dockerfile
 
       # Update the Dockerfile for human review for debugging if necessary
       - name: Upload generated Dockerfile

@@ -7,8 +7,8 @@ ARG CTSM_VERSION=ctsm5.3.065
 ENV BRANCH_NAME=""
 ENV BRANCH_URL=""
 
-# Install wget and git
-RUN apt-get update && apt-get install -y wget git
+# Install dependencies not associated with the spack environment
+RUN apt-get update && apt-get install -y wget git python3
 
 # Clone CTSM and checkout the specified version with git-fleximod
 RUN git clone https://github.com/ESCOMP/CTSM.git && \

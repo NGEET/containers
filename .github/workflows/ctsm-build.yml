@@ -5,6 +5,10 @@ on:
   # repository_dispatch:
     # types: [new-tag]
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/ctsm-build.yml'
   pull_request:
     branches: [main]
     paths:
@@ -43,7 +47,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./unit-testing/
-          push: true
+          push: ${{ github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
           tags: ghcr.io/${{ env.REPO_NAME}}/unit-test-ctsm:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max

@@ -1,6 +1,9 @@
 name: Build and Push CTSM Container
 
 on:
+  # We could have ctsm send out a trigger for this workflow
+  # repository_dispatch:
+    # types: [new-tag]
   workflow_dispatch:
   pull_request:
     branches: [main]

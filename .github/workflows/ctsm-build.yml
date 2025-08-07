@@ -1,11 +1,14 @@
-name: Build and Push CIME Container
+name: Build and Push CTSM Container
 
 on:
+  # We could have ctsm send out a trigger for this workflow
+  # repository_dispatch:
+    # types: [new-tag]
   workflow_dispatch:
-  # pull_request:
-  #   branches: [main]
-  #   paths:
-  #     - '.github/workflows/cime-build.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/ctsm-build.yml'
 
 jobs:
   build-and-push:
@@ -40,8 +43,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./unit-testing/
-          dockerfile: Dockerfile-CIME
           push: true
-          tags: ghcr.io/${{ env.REPO_NAME}}/unit-testing:latest
+          tags: ghcr.io/${{ env.REPO_NAME}}/unit-test-ctsm:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max

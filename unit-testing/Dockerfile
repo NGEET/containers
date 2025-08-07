@@ -10,6 +10,12 @@ ENV BRANCH_URL=""
 # Install dependencies not associated with the spack environment
 RUN apt-get update && apt-get install -y wget git python3
 
+# Install Miniconda
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh && \
+    bash /tmp/miniconda.sh -b -p /opt/miniconda && \
+    rm /tmp/miniconda.sh && \
+    ln -s /opt/miniconda/bin/conda /usr/local/bin/conda
+
 # Clone CTSM and checkout the specified version with git-fleximod
 RUN git clone https://github.com/ESCOMP/CTSM.git && \
     cd CTSM && \
